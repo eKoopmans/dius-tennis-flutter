@@ -1,16 +1,28 @@
 # dius_tennis_flutter
 
-A new Flutter project.
+This module implements the DiUS tennis coding test in Flutter - for learning!
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To run this project, first clone the repo:
 
-A few resources to get you started if this is your first Flutter project:
+```
+mkdir dius-tennis-flutter
+cd dius-tennis-flutter
+git clone https://github.com/eKoopmans/dius-tennis-flutter.git .
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Then run via the command line or VS Code.
+Note that this project requires the Flutter SDK to be installed - see [Flutter Getting Started](https://flutter.dev/docs/get-started/install) for more info.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+
+This project has two buttons which allow you to award points to Player 1 or Player 2, and displays the current Game, Set, and Match scores.
+There is also a reset button at the bottom to reset all scores.
+
+There is still lots of room for improvement:
+
+- Adding test cases (None implemented in Flutter)
+- Having an intro screen that allows you to enter the players' names
+- Responsive sizing and styling
+- Fun animations
