@@ -24,11 +24,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  List<int> _gameScore = [0, 0];
+  List<int> _setScore = [0, 0];
+  List<int> _matchScore = [0, 0];
+  bool _tie = false;
 
-  void _incrementCounter() {
+  void _pointWonBy(playerNum) {
     setState(() {
-      _counter++;
+      // Keep scores simple numeric - "translation" happens in getGameScore.
+      _gameScore[playerNum]++;
+
+      // Check for victory condition.
+      final int minVictory = _tie ? 7 : 4;
+      final int scoreDiff = (_gameScore[1] - _gameScore[0]).abs();
+      if (_gameScore[playerNum] >= minVictory && scoreDiff >= 2) {
+        _gameWonBy(playerNum);
+      }
+    });
+  }
+
+  void _gameWonBy(playerNum) {
+    // Update game and set scores.
+    _gameScore = [0, 0];
+    _setScore[playerNum]++;
+
+    // Check for victory condition.
+    if (_setScore[playerNum] >= 6) {
+      final int scoreDiff = (_setScore[1] - _setScore[0]).abs();
+      if (_tie || scoreDiff >= 2) {
+        _setWonBy(playerNum);
+      } else if (scoreDiff == 0) {
+        _tie = true;
+      }
+    }
+  }
+
+  void _setWonBy(playerNum) {
+    // Update set and match scores, and reset tie flag.
+    // Note: This is undefined behaviour according to the assignment.
+    _setScore = [0, 0];
+    _matchScore[playerNum]++;
+    _tie = false;
+  }
+
+  void _reset() {
+    setState(() {
+      _gameScore = [0, 0];
+      _setScore = [0, 0];
+      _matchScore = [0, 0];
+      _tie = false;
     });
   }
 
@@ -43,21 +87,21 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Match Score'),
-            Text('0-0'),
+            Text('${_matchScore[0]}-${_matchScore[1]}'),
             Text('Set Score'),
-            Text('0-0'),
+            Text('${_setScore[0]}-${_setScore[1]}'),
             Text('Game Score'),
-            Text('0-0'),
+            Text('${_gameScore[0]}-${_gameScore[1]}'),
             Text('Point Won By:'),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {_pointWonBy(0);},
                   child: Text('${widget.p1}'),
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {_pointWonBy(1);},
                   child: Text('${widget.p2}'),
                 ),
               ],
@@ -65,6 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _reset,
+        child: Icon(Icons.refresh),
+      )
     );
   }
 }
