@@ -10,14 +10,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'DiUS Tennis in Flutter'),
+      home: MyHomePage(title: 'DiUS Tennis in Flutter', p1: 'Player 1', p2: 'Player 2'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key key, this.title, this.p1, this.p2}) : super(key: key);
+  final String title, p1, p2;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -42,18 +42,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1
+            Text('Match Score'),
+            Text('0-0'),
+            Text('Set Score'),
+            Text('0-0'),
+            Text('Game Score'),
+            Text('0-0'),
+            Text('Point Won By:'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text('${widget.p1}'),
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text('${widget.p2}'),
+                ),
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
