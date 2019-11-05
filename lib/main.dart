@@ -42,6 +42,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<int> _matchScore = [0, 0];
   bool _tie = false;
 
+  /// Updates the score by giving a point to the specified player.
+  /// @param {number} playerNum - The scoring player's number (0 or 1).
   void _pointWonBy(playerNum) {
     setState(() {
       // Keep scores simple numeric - "translation" happens in getGameScore.
@@ -56,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
+  /// Updates the score by awarding the current game to the specified player.
+  /// @param {number} playerNum - The winning player's number (0 or 1).
   void _gameWonBy(playerNum) {
     // Update game and set scores.
     _gameScore = [0, 0];
@@ -72,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     }
   }
 
+  /// Updates the score by awarding the current set to the specified player.
+  /// @param {number} playerNum - The winning player's number (0 or 1).
   void _setWonBy(playerNum) {
     // Update set and match scores, and reset tie flag.
     // Note: This is undefined behaviour according to the assignment.
@@ -80,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _tie = false;
   }
 
+  /// Resets the game, set, and match scores.
   void _reset() {
     setState(() {
       _gameScore = [0, 0];
@@ -89,6 +96,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
+  /// Gets the game's current score, formatted as a string. Special cases for Deuce and Advantage.
+  /// @return {string} The current game score.
   _getGameScore() {
     // Handle tie special case.
     if (_tie) {
