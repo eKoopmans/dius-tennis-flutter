@@ -8,7 +8,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DiUS Tennis',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: const MaterialColor(0xFF21366D,
+          const {
+            50 : const Color.fromRGBO(33, 54, 109, .1),
+            100 : const Color.fromRGBO(33, 54, 109, .2),
+            200 : const Color.fromRGBO(33, 54, 109, .3),
+            300 : const Color.fromRGBO(33, 54, 109, .4),
+            400 : const Color.fromRGBO(33, 54, 109, .5),
+            500 : const Color.fromRGBO(33, 54, 109, .6),
+            600 : const Color.fromRGBO(33, 54, 109, .7),
+            700 : const Color.fromRGBO(33, 54, 109, .8),
+            800 : const Color.fromRGBO(33, 54, 109, .9),
+            900 : const Color.fromRGBO(33, 54, 109, 1),
+          }
+        ),
       ),
       home: MyHomePage(title: 'DiUS Tennis in Flutter', p1: 'Player 1', p2: 'Player 2'),
     );
@@ -122,10 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 RaisedButton(
                   onPressed: () {_pointWonBy(0);},
                   child: Text('${widget.p1}'),
+                  color: const Color(0xFF31b8e8),
                 ),
                 RaisedButton(
                   onPressed: () {_pointWonBy(1);},
                   child: Text('${widget.p2}'),
+                  color: const Color(0xFF31b8e8),
                 ),
               ],
             ),
