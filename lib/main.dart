@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<int> _gameScore = [0, 0];
   List<int> _setScore = [0, 0];
   List<int> _matchScore = [0, 0];
@@ -122,27 +122,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Match Score'),
-            Text('${_matchScore[0]}-${_matchScore[1]}'),
-            Text('Set Score'),
-            Text('${_setScore[0]}-${_setScore[1]}'),
-            Text('Game Score'),
-            Text(_getGameScore()),
-            Text('Point Won By:'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {_pointWonBy(0);},
-                  child: Text('${widget.p1}'),
-                  color: const Color(0xFF31b8e8),
-                ),
-                RaisedButton(
-                  onPressed: () {_pointWonBy(1);},
-                  child: Text('${widget.p2}'),
-                  color: const Color(0xFF31b8e8),
-                ),
-              ],
+            _myContainer('Match Score', _myText('${_matchScore[0]}-${_matchScore[1]}')),
+            _myContainer('Set Score', _myText('${_setScore[0]}-${_setScore[1]}')),
+            _myContainer('Game Score', _myText(_getGameScore())),
+            _myContainer(
+              'Point Won By:',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () {_pointWonBy(0);},
+                    child: Text('${widget.p1}'),
+                    color: const Color(0xFF31b8e8),
+                  ),
+                  RaisedButton(
+                    onPressed: () {_pointWonBy(1);},
+                    child: Text('${widget.p2}'),
+                    color: const Color(0xFF31b8e8),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -153,4 +152,26 @@ class _MyHomePageState extends State<MyHomePage> {
       )
     );
   }
+}
+
+Widget _myContainer(String heading, Widget content) {
+  return Container(
+    margin: const EdgeInsets.all(15),
+    child: Column(
+      children: <Widget>[
+        Text(
+          heading,
+          style: TextStyle(fontSize: 30),
+        ),
+        content,
+      ],
+    ),
+  );
+}
+
+Widget _myText(String text) {
+  return Text(
+    text,
+    style: TextStyle(fontSize: 20),
+  );
 }
