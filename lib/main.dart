@@ -76,6 +76,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _getGameScore() {
+    // Handle tie special case.
+    if (_tie) {
+      return _gameScore.join('-');
+    }
+
+    // Handle deuce and advantage state.
+    final bool atLeast3 = _gameScore.every((v) => v >= 3);
+    if (atLeast3) {
+      if (_gameScore[0] == _gameScore[1]) {
+        return 'Deuce';
+      } else if (_gameScore[0] > _gameScore[1]) {
+        return 'Advantage ' + widget.p1;
+      } else {
+        return 'Advantage ' + widget.p2;
+      }
+    }
+
+    // Default score behaviour, using 0, 15, 30, 40.
+    const List<int> scoreMap = [0, 15, 30, 40];
+    return _gameScore.map((v) => scoreMap[v]).join('-');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('Set Score'),
             Text('${_setScore[0]}-${_setScore[1]}'),
             Text('Game Score'),
-            Text('${_gameScore[0]}-${_gameScore[1]}'),
+            Text(_getGameScore()),
             Text('Point Won By:'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
